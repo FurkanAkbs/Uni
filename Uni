@@ -1,0 +1,87 @@
+
+Örneği aşağıda verilen 
+University uygulamasındaki sınıflara kurucular ve başlatma bloklarını ekleyin.
+Mümkün olan her yerde this ve this() kullanın.
+
+
+public class Classroom {
+String name;
+Course[] course;
+}
+
+
+public class Course {
+	String code;
+    String name;
+    Department department;
+    Professor teacher;
+    Student[] students;
+    Classroom classroom;
+}
+
+public class Department {
+    String name;
+    Professor head;
+    Course[] courses;
+    Student[] students;
+}
+public class Professor {
+	String no;
+    String name;
+    String dob;
+    String rank;
+    Department department;
+    Student[] advisee;
+    Course[] coursesGiven;
+}
+public class Student {
+	String no;
+	String name;
+	String dob;
+	Department department;
+	Professor[] advisor;
+	Course[] coursesTaken;
+}
+public class Test {
+
+	public static void main(String[] args) {
+		Department department1 = new Department();
+		department1.name = "Software Engineering";
+		
+        Professor professor1 = new Professor();
+        professor1.name = "Ahmet Arslan";
+        
+        Course course1 = new Course();
+        course1.name = "Int. to Software Engineering";
+        
+        Student student1 = new Student();
+        student1.name = "Akin Kaldiroglu";
+        
+        // Head of Software Engineering department is Ahmet Arslan and consequently his department is Software Engineering.
+        department1.head = professor1; 
+        professor1.department = department1;
+        
+        // Department of Int. to Software Engineering course is Software Engineering and consequently the course
+        // Int. to Software Engineering belongs to Software Engineering department.
+        course1.department = department1;
+        department1.courses = new Course[100];
+        department1.courses[0] = course1;
+        
+        course1.teacher = professor1;
+        professor1.coursesGiven = new Course[5];
+        professor1.coursesGiven[0] = course1;
+        
+        professor1.advisee = new Student[10];
+        professor1.advisee[0] = student1;
+        student1.advisor = new Professor[1];
+        student1.advisor[0] = professor1;
+        
+        student1.coursesTaken = new Course[7];
+        student1.coursesTaken[0] = course1;
+        
+        course1.students = new Student[100];
+        course1.students[0] = student1;
+        
+        System.out.println("Name of student student1's first course is " + student1.coursesTaken[0].name);
+        System.out.println("Name of student student1's first course's professor is " + student1.coursesTaken[0].teacher.name);
+        System.out.println("Name of student student1's first course's professor's department is " + student1.coursesTaken[0].teacher.department.name);
